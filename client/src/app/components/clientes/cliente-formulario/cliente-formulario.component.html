@@ -1,0 +1,77 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Nome/Razão Social</mat-label>
+    <input matInput formControlName="nomeRazaoSocial" required>
+  </mat-form-field>
+
+  <div class="row-fields">
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo Pessoa</mat-label>
+      <mat-select formControlName="tipoPessoa" required>
+        <mat-option value="F">Física</mat-option>
+        <mat-option value="J">Jurídica</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>CPF/CNPJ</mat-label>
+      <input matInput formControlName="documento" required>
+    </mat-form-field>
+    <ng-container *ngIf="form.get('tipoPessoa')?.value === 'F'">
+      <mat-form-field appearance="fill">
+        <mat-label>Data Nascimento</mat-label>
+        <input matInput formControlName="dataNascimento" type="date" required>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="form.get('tipoPessoa')?.value === 'J'">
+      <mat-form-field appearance="fill">
+        <mat-label>Inscrição Estadual</mat-label>
+        <input matInput formControlName="inscricaoEstadual" required>
+      </mat-form-field>
+    </ng-container>
+  </div>
+
+  <div class="row-fields">
+    <mat-form-field appearance="fill">
+      <mat-label>Telefone</mat-label>
+      <input matInput formControlName="telefone" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="wide-field">
+      <mat-label>E-mail</mat-label>
+      <input matInput formControlName="email" required>
+    </mat-form-field>
+  </div>
+  
+  <div formGroupName="endereco">
+    <mat-form-field appearance="fill">
+      <mat-label>CEP</mat-label>
+      <input matInput formControlName="cep" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="wide-field">
+      <mat-label>Endereço</mat-label>
+      <input matInput formControlName="logradouro" required>
+    </mat-form-field>
+    <div class="row-fields">
+      <mat-form-field appearance="fill">
+        <mat-label>Número</mat-label>
+        <input matInput formControlName="numero" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Bairro</mat-label>
+        <input matInput formControlName="bairro" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Cidade</mat-label>
+        <input matInput formControlName="cidade" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Estado</mat-label>
+        <input matInput formControlName="estado" required>
+      </mat-form-field>
+    </div>
+  </div>
+  
+  <div class="form-actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Salvar</button>
+    <button mat-button type="button" (click)="cancelar.emit()">Cancelar</button>
+  </div>
+</form>
